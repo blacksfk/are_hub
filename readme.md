@@ -16,7 +16,7 @@ Your `go version` must support modules in order for `go build` to obtain the nec
 ## Deployment
 1. Create a copy of `config.json.example`, rename the copy to `config.json` and edit it as appropriate.
 2. `docker build -t are_hub .`
-3. `docker run -it -p 6060:6060 -v ./:/ are_hub`
+3. `docker run -it -p 6060:6060 -v ./config:/app/config are_hub`
 
 ## Licence
 BSD-3-clause

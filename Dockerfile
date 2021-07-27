@@ -18,8 +18,11 @@ RUN go build
 # separate image for running
 FROM alpine
 
+WORKDIR /app/
+RUN mkdir config
+
 COPY --from=builder /app/cmd/are_hub/are_hub .
 
 # start the application
 # remember to expose the port set in config.json!
-ENTRYPOINT ["./are_hub", "--config", "./config.json"]
+ENTRYPOINT ["./are_hub", "--config", "./config/config.json"]
