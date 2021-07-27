@@ -4,11 +4,14 @@ FROM golang:alpine AS builder
 # create and change to application directory
 WORKDIR /app/
 
+# copy go.mod and go.sum to cache dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
 # copy source files
 COPY . ./
 
 # change to build directory and compile
-RUN go mod download
 WORKDIR ./cmd/are_hub/
 RUN go build
 
