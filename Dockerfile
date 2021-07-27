@@ -19,7 +19,6 @@ RUN go build
 FROM alpine
 
 COPY --from=builder /app/cmd/are_hub/are_hub .
-COPY config.json.docker ./config.json
 
 # start the application
 # remember to expose the port set in config.json!
