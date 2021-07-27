@@ -29,7 +29,7 @@ func load(file string) *config {
 
 	if e != nil {
 		// reading failed so die
-		log.Fatal("Error loading %s:", e)
+		log.Fatalf("Error loading %s:", e)
 	}
 
 	// unmarshal the bytes
