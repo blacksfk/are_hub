@@ -1,45 +1,40 @@
 package main
 
-import (
-	"encoding/json"
-	"log"
-	"os"
+import "flag"
 
-	"github.com/blacksfk/are_hub/mongodb"
-)
-
-// Application configuration parameters.
 type config struct {
-	// mongodb connection parameters
-	MongoDB *mongodb.Params
-
-	// address for the server to listen on. Eg. ":6060".
-	Address string
-
-	// allow requests originating from this domain. Eg. "example.com", "*".
-	AllowOrigin string
+	address            string
+	allowOrigin        string
+	dbUser             string
+	dbPass             string
+	dbHost             string
+	dbName             string
+	mongoAuthMechanism string
 }
 
-// Unmarshal file as JSON into a config struct. This function is only intended to be
-// called from the main function and therefore dies if it encounters an error
-// reading file or processing file's bytes as JSON.
-func load(file string) *config {
-	// read the entire file
-	bytes, e := os.ReadFile(file)
-
-	if e != nil {
-		// reading failed so die
-		log.Fatalf("Error loading %s:", e)
-	}
-
-	// unmarshal the bytes
+// Load configuration from the array of args containing flags and associated variables.
+func load(args []string) (*config, error) {
 	conf := &config{}
-	e = json.Unmarshal(bytes, conf)
+	set := flag.NewFlagSet("", flag.ExitOnError)
 
-	if e != nil {
-		// unmarshalling failed so die
-		log.Fatalf("Error processing %s as JSON:", e)
-	}
+	// define flags
+	// application/cors parameters
+	set.StringVar(&conf.address, "address", ":6060",
+		"Address for the server to listen on")
+	set.StringVar(&conf.allowOrigin, "allow-origin", "*",
+		"Access-Control-Allow-Origin value")
 
-	return conf
+	// database parameters
+	set.StringVar(&conf.dbUser, "db-user", "dev", "Database user")
+	set.StringVar(&conf.dbPass, "db-pass", "dev", "Database user's password")
+	set.StringVar(&conf.dbHost, "db-host", "localhost:27017", "Database host address")
+	set.StringVar(&conf.dbName, "db-name", "are_hub",
+		"Database name within the database server")
+
+	// mongodb specific parameters
+	set.StringVar(&conf.mongoAuthMechanism, "mongodb-auth-mechanism", "SCRAM-SHA-256",
+		"MongoDB authentication mechanism")
+
+	// parse the slice as flags
+	return conf, set.Parse(args)
 }

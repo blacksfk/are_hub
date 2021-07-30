@@ -1,29 +1,27 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
+	"os"
 
 	uf "github.com/blacksfk/microframework"
 )
 
 func main() {
-	// define flags
-	config := flag.String("config", "config.json", "Application JSON configuration file. See config.json.example for more information.")
-
-	// parse the flags
-	flag.Parse()
-
 	// load the configuration
-	conf := load(*config)
+	conf, e := load(os.Args[1:])
+
+	if e != nil {
+		log.Fatal(e)
+	}
 
 	// initialise services
 	services := initServices(conf)
 
 	// server configuration
 	sconf := &uf.Config{
-		Address:      conf.Address,
+		Address:      conf.address,
 		ErrorLogger:  logStdout,
 		AccessLogger: uf.LogStdout,
 	}
@@ -40,7 +38,7 @@ func main() {
 			// TODO: verify these are the only cors headers we need.
 			// Possibly "Access-Control-Allow-Credentials" amongst others.
 			h.Set("Access-Control-Allow-Methods", h.Get("Allow"))
-			h.Set("Access-Control-Allow-Origin", conf.AllowOrigin)
+			h.Set("Access-Control-Allow-Origin", conf.allowOrigin)
 		}
 
 		w.WriteHeader(http.StatusNoContent)

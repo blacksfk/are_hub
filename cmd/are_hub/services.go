@@ -18,7 +18,15 @@ type services struct {
 // is only intended to be called from the main function therefore dies if it encounters
 // an error creating a mongo.Client.
 func initServices(conf *config) *services {
-	client, e := mongodb.Connect(context.Background(), conf.MongoDB)
+	params := mongodb.Params{
+		User:      conf.dbUser,
+		Password:  conf.dbPass,
+		Mechanism: conf.mongoAuthMechanism,
+		Address:   conf.dbHost,
+		Name:      conf.dbName,
+	}
+
+	client, e := mongodb.Connect(context.Background(), &params)
 
 	if e != nil {
 		// connection failed so die
@@ -26,6 +34,6 @@ func initServices(conf *config) *services {
 	}
 
 	return &services{
-		mongodb.NewChannelCollection(client, conf.MongoDB.Name),
+		mongodb.NewChannelCollection(client, conf.dbName),
 	}
 }
