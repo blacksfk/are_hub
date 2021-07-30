@@ -6,17 +6,15 @@ This is the hub application that receives data and forwards it to the appropriat
 Your `go version` must support modules in order for `go build` to obtain the necessary dependencies. Currently `mongodb` is the only supported database.
 
 1. Install mongodb and create a new database.
-2. `cd cmd/are_hub/`.
-3. Create a copy of `config.json.example`.
-4. Rename the copy to `config.json`.
-5. Edit the file to reflect your environment.
-6. `go build`.
-7. `./are_hub` or `./are_hub --config <path_to_json_configuration_file>` (if the config file is not in the same directory as the executable and/or not named `config.json`).
+2. `cd cmd/are_hub/`
+3. `go build`
+4. `./are_hub` or `./are_hub --help` to view the commandline arguments and their default values.
 
 ## Deployment
-1. Create a copy of `config.json.example`, rename the copy to `config.json` and edit it as appropriate.
-2. `docker build -t are_hub .`
-3. `docker run -it -p 6060:6060 -v ./config:/app/config are_hub`
+Building a docker container is the easiest way (probably).
+
+1. `docker build -t are_hub:<tag> .`
+2. `docker run -d -p 9001:9001 --network backend are_hub:<tag> --address :9001 --allow-origin example.com --db-user blast_hardcheese --db-pass butch_deadlift --db-host mongodb --db-name acc_race_engineer`
 
 ## Licence
 BSD-3-clause
