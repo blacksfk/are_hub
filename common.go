@@ -6,7 +6,7 @@ import "time"
 // via struct composition.
 type Common struct {
 	ID        string    `json:"id" bson:"_id,omitempty"`
-	CreatedAt time.Time `json:"createdAt"`
+	CreatedAt time.Time `json:"createdAt" bson:",omitempty"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
