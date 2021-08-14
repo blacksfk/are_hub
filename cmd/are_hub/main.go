@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"github.com/rs/cors"
 )
 

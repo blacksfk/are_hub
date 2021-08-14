@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/blacksfk/are_hub"
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 )
 
 // Does it store valid channels in the request's context?

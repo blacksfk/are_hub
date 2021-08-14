@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"github.com/julienschmidt/httprouter"
 )
 

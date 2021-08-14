@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/blacksfk/are_hub/http"
 	"github.com/blacksfk/are_hub/http/middleware/validate"
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"nhooyr.io/websocket"
 )
 

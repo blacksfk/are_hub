@@ -9,7 +9,7 @@ import (
 
 	"github.com/blacksfk/are_hub"
 	"github.com/blacksfk/are_hub/hash"
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"nhooyr.io/websocket"
 )
 

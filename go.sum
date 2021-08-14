@@ -1,6 +1,6 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/blacksfk/microframework v0.7.0 h1:/8Sh5MnpJxl+ACwawYBiT7EF8cUYe15h+nmrJ7NHOTw=
-github.com/blacksfk/microframework v0.7.0/go.mod h1:dvXICSvRIaURKlBeYT1TQw30EiXq7G6+NbmW4I0iybE=
+github.com/blacksfk/uf v0.8.0 h1:ZuhXKb4BSedVgn3PoHw30u8VWLM6nuy7aG+K/LKBCio=
+github.com/blacksfk/uf v0.8.0/go.mod h1:+zPgpV/cTluo47tnGHHlceyiB11KVz4z0ve6TZiLW2I=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

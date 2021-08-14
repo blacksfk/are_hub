@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"github.com/go-playground/validator/v10"
 )
 

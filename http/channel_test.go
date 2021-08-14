@@ -11,7 +11,7 @@ import (
 
 	"github.com/blacksfk/are_hub"
 	"github.com/blacksfk/are_hub/mock"
-	uf "github.com/blacksfk/microframework"
+	"github.com/blacksfk/uf"
 	"github.com/julienschmidt/httprouter"
 )
 
