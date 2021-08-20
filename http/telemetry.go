@@ -75,7 +75,7 @@ func (ts *TelemetryServer) Publish(w http.ResponseWriter, r *http.Request) error
 	}
 
 	// compare the recieved password with the known password
-	match, e := hash.CmpPassword(tc.PasswordStr(), plaintext)
+	match, e := hash.CmpPassword(tc.Password.String(), plaintext)
 
 	if e != nil {
 		return e
@@ -311,7 +311,7 @@ func (ts *TelemetryServer) procedure(id string, conn *websocket.Conn) (*telemetr
 	}
 
 	// compare the received password with the known password
-	match, e := hash.CmpPassword(channel.PasswordStr(), string(bytes))
+	match, e := hash.CmpPassword(channel.Password.String(), string(bytes))
 
 	if e != nil {
 		// something went wrong with comparison

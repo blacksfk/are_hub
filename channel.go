@@ -5,16 +5,6 @@ import (
 	"fmt"
 )
 
-// password implements json.Marshaler.
-type password string
-
-// Prevent passwords from being marshaled and sent to clients by implementing
-// json.Marshaler and returning a empty byte slice. This allows for passwords
-// to be unmarshaled without issue.
-func (p password) MarshalJSON() ([]byte, error) {
-	return []byte(`""`), nil
-}
-
 // Represents a group of users listening to a data stream.
 type Channel struct {
 	Name     string `json:"name"`
@@ -24,7 +14,7 @@ type Channel struct {
 
 // Create a new channel.
 func NewChannel(name, pw string) *Channel {
-	return &Channel{Name: name, Password: password(pw)}
+	return &Channel{Name: name, Password: NewPassword(pw)}
 }
 
 // Get a channel from a context.
@@ -42,16 +32,6 @@ func ChannelFromCtx(ctx context.Context) (*Channel, error) {
 // Insert a channel into context.
 func (c *Channel) ToCtx(ctx context.Context) context.Context {
 	return context.WithValue(ctx, keyChannel, c)
-}
-
-// Retrieve the channel's password as a string.
-func (c *Channel) PasswordStr() string {
-	return string(c.Password)
-}
-
-// Mutate the channel's password to the string provided.
-func (c *Channel) SetPasswordStr(pw string) {
-	c.Password = password(pw)
 }
 
 type ChannelRepo interface {

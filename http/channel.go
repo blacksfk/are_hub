@@ -39,14 +39,14 @@ func (c Channel) Store(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// hash the new channel's password
-	hash, e := hash.Password(channel.PasswordStr())
+	hash, e := hash.Password(channel.Password.String())
 
 	if e != nil {
 		return e
 	}
 
 	// replace the channel's plaintext password with the generated hash
-	channel.SetPasswordStr(hash)
+	channel.Password.Set(hash)
 
 	// insert the new channel into the repository
 	e = c.channels.Insert(r.Context(), channel)
@@ -84,14 +84,14 @@ func (c Channel) Update(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// hash the new password
-	hash, e := hash.Password(channel.PasswordStr())
+	hash, e := hash.Password(channel.Password.String())
 
 	if e != nil {
 		return e
 	}
 
 	// replace the channel's plaintext password with the generated hash
-	channel.SetPasswordStr(hash)
+	channel.Password.Set(hash)
 
 	// update the channel in the repository
 	e = c.channels.UpdateID(r.Context(), uf.GetParam(r, "id"), channel)
