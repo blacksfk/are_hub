@@ -10,6 +10,8 @@ type ctxKey uint
 // and: https://golang.org/doc/effective_go.html#constants
 const (
 	keyChannel ctxKey = iota
+	keyUser
+	keyAuth
 )
 
 // Types implementing this interface can be stored in a context.
