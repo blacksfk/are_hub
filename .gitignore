@@ -1,6 +1,6 @@
-# executable
+# executables
 cmd/are_hub/are_hub
 cmd/are_hub/are_hub.exe
 
-# local config file
-cmd/are_hub/config.json
+cmd/are_hub_init/are_hub_init
+cmd/are_hub_init/are_hub_init.exe
