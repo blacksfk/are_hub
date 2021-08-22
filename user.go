@@ -35,7 +35,7 @@ func UserFromCtx(ctx context.Context) (*User, error) {
 }
 
 // Get the authenticated user from a context.
-func GetAuthenticatedUser(ctx context.Context) (*User, error) {
+func AuthenticatedUser(ctx context.Context) (*User, error) {
 	return userFromCtx(ctx, keyAuth)
 }
 
