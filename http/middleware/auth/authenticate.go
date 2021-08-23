@@ -33,8 +33,10 @@ func (a Authentication) Request(r *http.Request) error {
 
 	// authenticate the request
 	hawkAuth, e := hawk.NewAuthFromRequest(r, func(creds *hawk.Credentials) error {
+		var e error
+
 		// find the user
-		user, e := a.users.FindID(ctx, creds.ID)
+		user, e = a.users.FindID(ctx, creds.ID)
 
 		if e != nil {
 			if are_hub.IsNoObjectsFound(e) {
