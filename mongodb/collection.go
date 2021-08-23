@@ -64,7 +64,7 @@ func (c collection) findID(ctx context.Context, hex string, ptr are_hub.Archetyp
 		return e
 	}
 
-	return c.get().FindOne(ctx, bson.M{"_id": id}).Decode(ptr)
+	return result.Decode(ptr)
 }
 
 // Insert a document.
