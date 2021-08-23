@@ -12,6 +12,7 @@ const (
 	keyChannel ctxKey = iota
 	keyUser
 	keyAuth
+	keyLogin
 )
 
 // Types implementing this interface can be stored in a context.
