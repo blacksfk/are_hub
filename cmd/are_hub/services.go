@@ -12,6 +12,7 @@ import (
 // require initilisation.
 type services struct {
 	channels are_hub.ChannelRepo
+	users    are_hub.UserRepo
 }
 
 // Initialise various services and create mongodb collections based on conf. This function
@@ -35,5 +36,6 @@ func initServices(conf *config) *services {
 
 	return &services{
 		mongodb.NewChannelCollection(client, conf.dbName),
+		mongodb.NewUserCollection(client, conf.dbName),
 	}
 }
