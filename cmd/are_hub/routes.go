@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/blacksfk/are_hub/http"
+	"github.com/blacksfk/are_hub/http/middleware/auth"
 	"github.com/blacksfk/are_hub/http/middleware/validate"
 	"github.com/blacksfk/uf"
 	"nhooyr.io/websocket"
@@ -9,12 +10,26 @@ import (
 
 // HTTP route definitions.
 func routes(s *uf.Server, services *services) {
+	a := auth.New(services.users)
+
 	// channel routes
 	c := http.NewChannel(services.channels)
-	v := validate.NewChannel()
+	cv := validate.NewChannel()
 
-	s.NewGroup("/channel").Get(c.Index).Post(c.Store, v.Store)
-	s.NewGroup("/channel/:id").Get(c.Show).Put(c.Update, v.Store).Delete(c.Delete)
+	s.NewGroup("/channel").
+		Get(c.Index).
+		Post(c.Store, a.Request, cv.Store)
+
+	s.NewGroup("/channel/:id").
+		Get(c.Show, a.Request).
+		Put(c.Update, a.Request, cv.Store).
+		Delete(c.Delete, a.Request)
+
+	// user routes
+	u := http.NewUser(services.users)
+	uv := validate.NewUser()
+
+	s.Post("/login", u.Login, uv.Login)
 
 	// websocket upgrade routes
 	opts := &websocket.AcceptOptions{
