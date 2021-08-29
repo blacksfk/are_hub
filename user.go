@@ -7,8 +7,8 @@ import (
 
 type User struct {
 	Name     string `json:"name"`
-	Password password
 	Key      string `json:"key"`
+	Password password
 	Common   `bson:",inline"`
 }
 
@@ -58,6 +58,9 @@ type UserRepo interface {
 
 	// Find a user by its ID.
 	FindID(context.Context, string) (*User, error)
+
+	// Find a user by its name.
+	FindName(context.Context, string) (*User, error)
 
 	// Find and update a user by its ID.
 	UpdateID(context.Context, string, Archetype) error

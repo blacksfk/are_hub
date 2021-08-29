@@ -41,6 +41,22 @@ func (u User) FindID(ctx context.Context, id string) (*are_hub.User, error) {
 	return user, u.findID(ctx, id, user)
 }
 
+func (u User) FindName(ctx context.Context, name string) (*are_hub.User, error) {
+	user := &are_hub.User{}
+	coll := u.get()
+	result := coll.FindOne(ctx, bson.M{"name": name})
+
+	if e := result.Err(); e != nil {
+		if e == mongo.ErrNoDocuments {
+			return nil, are_hub.NewNoObjectsFound("name: "+name, coll.Name())
+		}
+
+		return nil, e
+	}
+
+	return user, result.Decode(user)
+}
+
 func (u User) DeleteID(ctx context.Context, id string) (*are_hub.User, error) {
 	var user *are_hub.User
 
