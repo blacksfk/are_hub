@@ -66,7 +66,7 @@ func (a Authentication) Request(r *http.Request) error {
 
 	if e != nil {
 		if _, ok := e.(hawk.AuthError); ok {
-			return uf.BadRequest(e.Error())
+			return uf.Unauthorized(e.Error())
 		}
 
 		return e
