@@ -34,6 +34,8 @@ func main() {
 		AllowedOrigins: []string{conf.allowOrigin},
 		AllowedMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut,
 			http.MethodPatch, http.MethodDelete},
+		// TODO: list appropriate headers
+		AllowedHeaders: []string{"*"},
 	})
 
 	// define routes
