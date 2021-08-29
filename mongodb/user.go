@@ -36,7 +36,7 @@ func (u User) All(ctx context.Context) ([]are_hub.User, error) {
 }
 
 func (u User) FindID(ctx context.Context, id string) (*are_hub.User, error) {
-	var user *are_hub.User
+	user := &are_hub.User{}
 
 	return user, u.findID(ctx, id, user)
 }
