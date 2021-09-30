@@ -22,6 +22,7 @@ func routes(s *uf.Server, services *services) {
 
 	s.NewGroup("/channel/:id").
 		Get(c.Show, a.Request).
+		Post(c.VerifyPassword, cv.Verify).
 		Put(c.Update, a.Request, cv.Store).
 		Delete(c.Delete, a.Request)
 
