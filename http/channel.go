@@ -124,3 +124,42 @@ func (c Channel) Delete(w http.ResponseWriter, r *http.Request) error {
 	// return the deleted channel
 	return uf.SendJSON(w, channel)
 }
+
+// Verify a password for a channel is correct.
+func (c Channel) VerifyPassword(w http.ResponseWriter, r *http.Request) error {
+	// extract the channel password from the context
+	ctx := r.Context()
+	verify, e := are_hub.ChannelFromCtx(ctx)
+
+	if e != nil {
+		return e
+	}
+
+	// find the requested channel
+	channel, e := c.channels.FindID(r.Context(), uf.GetParam(r, "id"))
+
+	if e != nil {
+		if are_hub.IsNoObjectsFound(e) {
+			return uf.NotFound(e.Error())
+		}
+
+		return e
+	}
+
+	// compare the hashed password with the plaintext
+	match, e := hash.CmpPassword(
+		channel.Password.String(), verify.Password.String())
+
+	if e != nil {
+		return e
+	}
+
+	if !match {
+		return uf.Unauthorized("Incorrect password")
+	}
+
+	// all good
+	w.WriteHeader(200)
+
+	return nil
+}
